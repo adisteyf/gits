@@ -1,0 +1,40 @@
+#!/bin/bash
+# use: ./pushongh.sh "ur comment"
+if [ -z "$1" ]; then
+	echo "No params."
+	echo "Try 'gits help'"
+	exit
+fi
+
+if [ $1 == "-help" ]; then
+	echo "USAGE: gits [COMMAND] [PARAMS]..."
+	echo "COMMANDS:"
+	echo "	gits push [COMMIT MSG]"
+	echo "	param 'push' is:"
+	echo "		git add ."
+	echo "		git commit -m [COMMIT MSG]"
+	echo "		git push -u origin main (if exit code isnt 0, program says 'To you want to run this command again with force? [Y/n]')"
+	echo "		if you type 'Y', program will run last command with -f flag"
+	exit
+fi
+
+if [ ! -z "$2" ] && [ $1 == "push" ]; then
+	git add .
+	git commit -m "$2"
+	git push -u origin main
+	if [ $? == 0 ]; then
+		echo "Done!"
+	else
+		echo "Command 'git push -u origin main' exited with err."
+		read -p "To you want to run this command again with force? [Y/n]: " runforce
+		if ["$runforce" == "Y"] || ["$runforce" == "y"]; then
+			git push -uf origin main
+		else
+			echo "Ok. Exiting..."
+			exit
+		fi
+	fi
+	else
+		echo "wrong param '${1}'"
+		echo "see 'gits -help'"
+fi
