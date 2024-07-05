@@ -3,7 +3,7 @@ The **GitScripts** *(gits)* is a simple bash script with aliases of `git` comman
 
 # How to install
 1. `git clone https://github.com/adisteyf/gits`.
-2. `chmod u+x ./gits/gits`.
+2. `chmod +x ./gits/gits`.
 3. `sudo mv ./gits/gits /usr/bin/`.
 4. `rm -rf ./gits/`.
 
